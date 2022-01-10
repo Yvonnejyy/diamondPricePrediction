@@ -7,11 +7,11 @@ import pickle
 from flask import Flask, render_template, request
 
 #creating instance of the class
-app=Flask(__name__)
+application=Flask(__name__)
 
 #to tell flask what url shoud trigger the function index()
-@app.route('/')
-@app.route('/index')
+@application.route('/')
+@application.route('/index')
 def index():
     return flask.render_template('DiamondPrice.html')
     #return "Hello World"
@@ -23,7 +23,7 @@ def ValuePredictor(to_predict_df):
     return result[0]
 
 
-@app.route('/result',methods = ['POST'])
+@application.route('/result',methods = ['POST'])
 def result():
     if request.method == 'POST':
         request_dict = request.form.to_dict()
@@ -38,4 +38,4 @@ def result():
         prediction= np.exp(result)
         return (render_template("result.html",prediction=prediction))
 if __name__ == "__main__":
-	app.run(debug=True)
+	application.run(debug=True)
